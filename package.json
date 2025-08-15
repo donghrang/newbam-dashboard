@@ -1,0 +1,13 @@
+{
+  "name": "newbam-dashboard",
+  "version": "1.0.0",
+  "description": "Newbam Dashboard Application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No specific build step configured for this project\""
+  },
+  "keywords": ["dashboard", "newbam", "liquidation", "management"],
+  "author": "",
+  "license": "ISC"
+}
