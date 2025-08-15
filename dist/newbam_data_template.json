@@ -1,0 +1,161 @@
+{
+  "last_updated": "2025-08-15",
+  "financial": {
+    "bank_balance": 55450000,
+    "amazon_pending": 9900,
+    "amazon_current": 5984,
+    "expected_revenue": 35700
+  },
+  "inventory_fba": [
+    {
+      "sku": "Cashew001",
+      "name": "Lightly Salted",
+      "quantity": 2380,
+      "price": 18.59,
+      "total_value": 44184.2
+    },
+    {
+      "sku": "Cashew008",
+      "name": "Honey Roasted",
+      "quantity": 386,
+      "price": 18.98,
+      "total_value": 7326.28
+    },
+    {
+      "sku": "Cashew006",
+      "name": "Mix Variety",
+      "quantity": 918,
+      "price": 18.98,
+      "total_value": 17423.64
+    },
+    {
+      "sku": "Cashew005",
+      "name": "Sea Salt Caramel",
+      "quantity": 146,
+      "price": 18.98,
+      "total_value": 2771.08
+    },
+    {
+      "sku": "Cashew004",
+      "name": "Spicy Tom Yum",
+      "quantity": 10,
+      "price": 18.98,
+      "total_value": 189.8
+    }
+  ],
+  "additional_inventory": [
+    {
+      "item": "Tom Yum boxes",
+      "quantity_boxes": 13,
+      "boxes_per_unit": 24,
+      "total_units": 312
+    },
+    {
+      "item": "Salt boxes",
+      "quantity_boxes": 2,
+      "boxes_per_unit": 24,
+      "total_units": 48
+    }
+  ],
+  "business_metrics": {
+    "period": "90 ngày gần nhất",
+    "total_sales": 76611.7,
+    "ad_spend": 10834.56,
+    "ad_sales": 29802.3,
+    "orders": 1326,
+    "tacos": 14.14,
+    "acos": 36.35,
+    "tacos_change": -25.89,
+    "acos_change": -24.88
+  },
+  "task_assignments": [
+    {
+      "person": "ĐÔNG HUỲNH",
+      "role": "Quản lý tổng thể",
+      "tasks": [
+        {
+          "task": "Xử lý hàng tồn kho gửi Amazon",
+          "status": "in_progress",
+          "priority": "high"
+        },
+        {
+          "task": "Quản lý bán hàng tối ưu chi phí",
+          "status": "in_progress",
+          "priority": "high"
+        },
+        {
+          "task": "Phối hợp tổng thể các công việc",
+          "status": "in_progress",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "person": "ANH THUẬN",
+      "role": "Quản lý kho & tài sản",
+      "tasks": [
+        {
+          "task": "Phân loại NVL tồn kho (hộp, cuộn màng)",
+          "status": "not_started",
+          "priority": "high"
+        },
+        {
+          "task": "Tìm đầu mối thanh lý máy đóng gói",
+          "status": "not_started",
+          "priority": "medium"
+        },
+        {
+          "task": "Báo cáo số lượng NVL tồn kho",
+          "status": "not_started",
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "person": "CHỊ THƯ",
+      "role": "Kế toán & tài chính",
+      "tasks": [
+        {
+          "task": "Báo cáo số dư TK định kỳ 15 ngày",
+          "status": "in_progress",
+          "priority": "high"
+        },
+        {
+          "task": "Làm báo cáo tài chính",
+          "status": "not_started",
+          "priority": "medium"
+        },
+        {
+          "task": "Thực hiện đóng thuế",
+          "status": "not_started",
+          "priority": "medium"
+        }
+      ]
+    }
+  ],
+  "timeline": {
+    "sales_rate_usd": "5000-5500",
+    "cycle_days": 15,
+    "estimated_months": 3.5,
+    "estimated_days": 105,
+    "completion_target": "Cuối tháng 11/2025",
+    "current_progress": 0
+  },
+  "hr_actions": {
+    "terminate": "Chấm dứt hợp đồng chị Thanh từ tháng 8/2025",
+    "continue": "Chị Thư và anh Thuận tiếp tục đến khi hoàn thành"
+  },
+  "reporting": {
+    "frequency": "15 ngày",
+    "next_due": "2025-08-30",
+    "recipients": [
+      "Anh Tân Bùi"
+    ],
+    "format": "Dashboard + văn bản báo cáo"
+  },
+  "settings": {
+    "currency_rate": 25000,
+    "business_name": "NEWBAM",
+    "timezone": "GMT+7"
+  }
+}

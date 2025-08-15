@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Thanh Lý NEWBAM - Phiên Bản Cập Nhật</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header__content">
+                <h1 class="header__title">📊 HỆ THỐNG QUẢN LÝ THANH LÝ NEWBAM - PHIÊN BẢN CẬP NHẬT</h1>
+                <div class="header__info">
+                    <span class="header__date">📅 Ngày hiện tại: <span id="current-date">15/08/2025</span></span>
+                    <button class="btn btn--primary header__update-btn" id="refresh-data">🔄 Cập nhật dữ liệu</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-tab nav-tab--active" data-tab="overview">📈 Tổng quan</button>
+            <button class="nav-tab" data-tab="update">✏️ Cập nhật</button>
+            <button class="nav-tab" data-tab="timeline">⏰ Timeline</button>
+            <button class="nav-tab" data-tab="cashflow">💰 Dòng tiền</button>
+            <button class="nav-tab" data-tab="report">📄 Báo cáo</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="tab-content">
+            <!-- Overview Tab -->
+            <div class="tab-pane tab-pane--active" id="overview-tab">
+                <!-- Financial Cards -->
+                <section class="financial-cards">
+                    <div class="card-grid">
+                        <div class="card financial-card">
+                            <div class="card__body">
+                                <div class="financial-card__icon">🏦</div>
+                                <div class="financial-card__content">
+                                    <h3 class="financial-card__title">Số dư ngân hàng</h3>
+                                    <p class="financial-card__value" id="bank-balance">55,450,000 VND</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card financial-card">
+                            <div class="card__body">
+                                <div class="financial-card__icon">⏳</div>
+                                <div class="financial-card__content">
+                                    <h3 class="financial-card__title">Tiền Amazon sắp về (30/8)</h3>
+                                    <p class="financial-card__value" id="amazon-pending">9,900 USD</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card financial-card">
+                            <div class="card__body">
+                                <div class="financial-card__icon">💰</div>
+                                <div class="financial-card__content">
+                                    <h3 class="financial-card__title">Tiền hiện tại Amazon</h3>
+                                    <p class="financial-card__value" id="amazon-current">5,984 USD</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card financial-card">
+                            <div class="card__body">
+                                <div class="financial-card__icon">🎯</div>
+                                <div class="financial-card__content">
+                                    <h3 class="financial-card__title">Dự kiến thu về (đã cộng hàng bổ sung)</h3>
+                                    <p class="financial-card__value" id="expected-revenue">41,576 USD</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FBA Inventory - UPDATED WITH CONSOLIDATED STOCK -->
+                <section class="inventory-section">
+                    <div class="card">
+                        <div class="card__header">
+                            <h2>📦 Bảng tồn kho FBA (ĐÃ CỘNG HÀNG BỔ SUNG)</h2>
+                        </div>
+                        <div class="card__body">
+                            <div class="table-container">
+                                <table class="data-table" id="fba-inventory-table">
+                                    <thead>
+                                        <tr>
+                                            <th>SKU</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá USD</th>
+                                            <th>Tổng giá trị</th>
+                                            <th>Hàng bổ sung</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Business Metrics -->
+                <section class="metrics-section">
+                    <div class="card">
+                        <div class="card__header">
+                            <h2>📊 Chỉ số kinh doanh 90 ngày</h2>
+                        </div>
+                        <div class="card__body">
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <h4>TACOS</h4>
+                                    <p class="metric-value">14.14%</p>
+                                    <span class="metric-change positive">↓ 25.89%</span>
+                                </div>
+                                <div class="metric-card">
+                                    <h4>ACOS</h4>
+                                    <p class="metric-value">36.35%</p>
+                                    <span class="metric-change positive">↓ 24.88%</span>
+                                </div>
+                                <div class="metric-card">
+                                    <h4>Tổng doanh số</h4>
+                                    <p class="metric-value" id="total-sales">76,611.70 USD</p>
+                                    <span class="metric-orders" id="total-orders">1,326 đơn hàng</span>
+                                </div>
+                                <div class="metric-card">
+                                    <h4>Chi phí ads</h4>
+                                    <p class="metric-value" id="ad-spend">10,834.56 USD</p>
+                                    <span class="metric-orders" id="ad-sales">29,802.30 USD ads sales</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Progress Overview -->
+                <section class="progress-section">
+                    <h2>📈 Tiến độ tổng thể</h2>
+                    <div class="progress-grid">
+                        <div class="card">
+                            <div class="card__body">
+                                <h4>Tiến độ thanh lý tổng thể</h4>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 15%"></div>
+                                    </div>
+                                    <span class="progress-text">15%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card__body">
+                                <h4>Tiến độ bán hàng</h4>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 8%"></div>
+                                    </div>
+                                    <span class="progress-text">8%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card__body">
+                                <h4>Tiến độ thu tiền</h4>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 12%"></div>
+                                    </div>
+                                    <span class="progress-text">12%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Alerts -->
+                <section class="alerts-section">
+                    <div class="alerts-container" id="alerts-container">
+                        <div class="alert alert--info">
+                            🔔 Sắp đến ngày nhận thanh toán Amazon (30/8/2025)
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Update Tab -->
+            <div class="tab-pane" id="update-tab">
+                <div class="update-sections">
+                    <h2>✏️ CẬP NHẬT DỮ LIỆU</h2>
+                    
+                    <!-- Financial Update -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h2>💰 Cập nhật tài chính</h2>
+                        </div>
+                        <div class="card__body">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Số dư ngân hàng (VND)</label>
+                                    <input type="number" class="form-control" id="update-bank-balance" placeholder="55450000">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tiền Amazon sắp về (USD)</label>
+                                    <input type="number" class="form-control" id="update-amazon-pending" placeholder="9900">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tiền hiện tại Amazon (USD)</label>
+                                    <input type="number" class="form-control" id="update-amazon-current" placeholder="5984">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn--primary" id="update-financial">💾 Cập nhật tài chính</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Update -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h2>✅ Cập nhật tiến độ công việc</h2>
+                        </div>
+                        <div class="card__body">
+                            <div class="form-group">
+                                <label class="form-label">Chọn tuần công việc</label>
+                                <select class="form-control" id="week-select">
+                                    <option value="">-- Chọn tuần --</option>
+                                    <option value="week3-aug">Tuần 3/8 (15-21/8)</option>
+                                    <option value="week4-aug">Tuần 4/8 (22-31/8)</option>
+                                    <option value="week1-sep">Tuần 1/9 (1-7/9)</option>
+                                    <option value="week2-sep">Tuần 2/9 (8-14/9)</option>
+                                </select>
+                            </div>
+                            <div class="tasks-update-list" id="tasks-update-list">
+                                <p class="placeholder-text">Vui lòng chọn tuần để xem công việc</p>
+                            </div>
+                            <button class="btn btn--primary" id="update-progress">💾 Cập nhật tiến độ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Tab -->
+            <div class="tab-pane" id="timeline-tab">
+                <div class="timeline-content">
+                    <h2>⏰ LỊCH TRÌNH CÔNG VIỆC CHI TIẾT</h2>
+                    
+                    <!-- August 2025 -->
+                    <div class="card timeline-month">
+                        <div class="card__header">
+                            <h3>📅 THÁNG 8/2025</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="timeline-weeks">
+                                <!-- Week 3 -->
+                                <div class="timeline-week">
+                                    <h4 class="timeline-week-title">Tuần 3 (15-21/8)</h4>
+                                    <div class="timeline-tasks">
+                                        <div class="timeline-task">
+                                            <span class="task-date">15/8</span>
+                                            <span class="task-desc">Nhận thanh toán Amazon (9,900 USD)</span>
+                                            <span class="task-responsible">Thư</span>
+                                            <span class="task-status status--scheduled">Đã lên lịch</span>
+                                        </div>
+                                        <div class="timeline-task">
+                                            <span class="task-date">16-18/8</span>
+                                            <span class="task-desc">Thuận báo cáo NVL tồn kho chi tiết</span>
+                                            <span class="task-responsible">Thuận</span>
+                                            <span class="task-status status--pending">Chờ thực hiện</span>
+                                        </div>
+                                        <div class="timeline-task">
+                                            <span class="task-date">19-20/8</span>
+                                            <span class="task-desc">Đông gửi 15 thùng hàng bổ sung lên FBA</span>
+                                            <span class="task-responsible">Đông</span>
+                                            <span class="task-status status--pending">Chờ thực hiện</span>
+                                        </div>
+                                        <div class="timeline-task">
+                                            <span class="task-date">21/8</span>
+                                            <span class="task-desc">Chấm dứt hợp đồng chị Thanh</span>
+                                            <span class="task-responsible">Đông</span>
+                                            <span class="task-status status--pending">Chờ thực hiện</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Week 4 -->
+                                <div class="timeline-week">
+                                    <h4 class="timeline-week-title">Tuần 4 (22-31/8)</h4>
+                                    <div class="timeline-tasks">
+                                        <div class="timeline-task">
+                                            <span class="task-date">22-25/8</span>
+                                            <span class="task-desc">Phân loại đóng thùng NVL (hộp, cuộn màng)</span>
+                                            <span class="task-responsible">Thuận</span>
+                                            <span class="task-status status--scheduled">Đã lên lịch</span>
+                                        </div>
+                                        <div class="timeline-task">
+                                            <span class="task-date">26-28/8</span>
+                                            <span class="task-desc">Tìm đầu mối thanh lý máy đóng gói</span>
+                                            <span class="task-responsible">Thuận</span>
+                                            <span class="task-status status--scheduled">Đã lên lịch</span>
+                                        </div>
+                                        <div class="timeline-task">
+                                            <span class="task-date">30/8</span>
+                                            <span class="task-desc">Nhận thanh toán Amazon kỳ 2 (5,500 USD)</span>
+                                            <span class="task-responsible">Thư</span>
+                                            <span class="task-status status--scheduled">Đã lên lịch</span>
+                                        </div>
+                                        <div class="timeline-task">
+                                            <span class="task-date">30/8</span>
+                                            <span class="task-desc">Báo cáo tài chính định kỳ</span>
+                                            <span class="task-responsible">Thư</span>
+                                            <span class="task-status status--scheduled">Đã lên lịch</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- September 2025 -->
+                    <div class="card timeline-month">
+                        <div class="card__header">
+                            <h3>📅 THÁNG 9/2025</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="timeline-weeks">
+                                <div class="timeline-week">
+                                    <h4 class="timeline-week-title">Tuần 1 (1-7/9)</h4>
+                                    <div class="timeline-tasks">
+                                        <div class="timeline-task">
+                                            <span class="task-date">1-3/9</span>
+                                            <span class="task-desc">Đông tối ưu chiến lược bán hàng, giảm chi phí ads</span>
+                                            <span class="task-responsible">Đông</span>
+                                            <span class="task-status status--scheduled">Đã lên lịch</span>
+                                        </div>
+                                        <div class="timeline-task">
+                                            <span class="task-date">15/9</span>
+                                            <span class="task-desc">Nhận thanh toán Amazon (5,200 USD)</span>
+                                            <span class="task-responsible">Thư</span>
+                                            <span class="task-status status--scheduled">Đã lên lịch</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Final Timeline -->
+                    <div class="card timeline-final">
+                        <div class="card__header">
+                            <h3>🎯 CÁC MỐC QUAN TRỌNG</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="final-milestones">
+                                <div class="milestone">
+                                    <span class="milestone-date">15/10</span>
+                                    <span class="milestone-desc">Thanh toán Amazon (4,800 USD)</span>
+                                </div>
+                                <div class="milestone">
+                                    <span class="milestone-date">30/10</span>
+                                    <span class="milestone-desc">Thanh toán Amazon (4,500 USD)</span>
+                                </div>
+                                <div class="milestone">
+                                    <span class="milestone-date">15/11</span>
+                                    <span class="milestone-desc">Thanh toán Amazon cuối (3,000 USD)</span>
+                                </div>
+                                <div class="milestone milestone--final">
+                                    <span class="milestone-date">30/11</span>
+                                    <span class="milestone-desc">Dự kiến hoàn thành thanh lý, chốt sổ sách</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cash Flow Tab -->
+            <div class="tab-pane" id="cashflow-tab">
+                <div class="cashflow-content">
+                    <h2>💰 THEO DÕI DÒNG TIỀN</h2>
+                    
+                    <!-- Cash Flow Chart -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>📈 Biểu đồ dòng tiền dự kiến</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container" style="position: relative; height: 400px;">
+                                <canvas id="cashflow-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cash Flow Timeline -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>📊 Timeline dòng tiền chi tiết</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="cashflow-timeline">
+                                <div class="cashflow-item current">
+                                    <div class="cashflow-date">15/8/2025 - HIỆN TẠI</div>
+                                    <div class="cashflow-details">
+                                        <div class="cashflow-balance">Số dư bank: <strong>55,450,000 VND</strong></div>
+                                        <div class="cashflow-pending">Tiền Amazon chờ về: <strong>15,884 USD</strong></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="cashflow-item">
+                                    <div class="cashflow-date">30/8/2025</div>
+                                    <div class="cashflow-details">
+                                        <div class="cashflow-income">+ Nhận từ Amazon: <strong class="positive">9,900 USD</strong></div>
+                                        <div class="cashflow-expense">- Lương tháng 8: <strong class="negative">5,000,000 VND</strong></div>
+                                        <div class="cashflow-balance">Dự kiến bank: <strong>~302,000,000 VND</strong></div>
+                                    </div>
+                                </div>
+
+                                <div class="cashflow-item">
+                                    <div class="cashflow-date">15/9/2025</div>
+                                    <div class="cashflow-details">
+                                        <div class="cashflow-income">+ Nhận từ Amazon: <strong class="positive">5,200 USD</strong></div>
+                                        <div class="cashflow-expense">- Lương tháng 9: <strong class="negative">5,000,000 VND</strong></div>
+                                        <div class="cashflow-balance">Dự kiến bank: <strong>~427,000,000 VND</strong></div>
+                                    </div>
+                                </div>
+
+                                <div class="cashflow-item">
+                                    <div class="cashflow-date">30/9/2025</div>
+                                    <div class="cashflow-details">
+                                        <div class="cashflow-income">+ Nhận từ Amazon: <strong class="positive">4,800 USD</strong></div>
+                                        <div class="cashflow-balance">Dự kiến bank: <strong>~547,000,000 VND</strong></div>
+                                    </div>
+                                </div>
+
+                                <div class="cashflow-item">
+                                    <div class="cashflow-date">15/10/2025</div>
+                                    <div class="cashflow-details">
+                                        <div class="cashflow-income">+ Nhận từ Amazon: <strong class="positive">4,500 USD</strong></div>
+                                        <div class="cashflow-expense">- Lương tháng 10: <strong class="negative">5,000,000 VND</strong></div>
+                                        <div class="cashflow-balance">Dự kiến bank: <strong>~657,000,000 VND</strong></div>
+                                    </div>
+                                </div>
+
+                                <div class="cashflow-item">
+                                    <div class="cashflow-date">30/10/2025</div>
+                                    <div class="cashflow-details">
+                                        <div class="cashflow-income">+ Nhận từ Amazon: <strong class="positive">4,200 USD</strong></div>
+                                        <div class="cashflow-balance">Dự kiến bank: <strong>~762,000,000 VND</strong></div>
+                                    </div>
+                                </div>
+
+                                <div class="cashflow-item">
+                                    <div class="cashflow-date">15/11/2025</div>
+                                    <div class="cashflow-details">
+                                        <div class="cashflow-income">+ Nhận từ Amazon: <strong class="positive">3,800 USD</strong></div>
+                                        <div class="cashflow-expense">- Lương tháng 11: <strong class="negative">5,000,000 VND</strong></div>
+                                        <div class="cashflow-balance">Dự kiến bank: <strong>~857,000,000 VND</strong></div>
+                                    </div>
+                                </div>
+
+                                <div class="cashflow-item final">
+                                    <div class="cashflow-date">30/11/2025 - CHỐT CUỐI</div>
+                                    <div class="cashflow-details">
+                                        <div class="cashflow-income">+ Nhận từ Amazon cuối: <strong class="positive">3,000 USD</strong></div>
+                                        <div class="cashflow-balance final-balance">TỔNG DỰ KIẾN THU VỀ: <strong>~932,000,000 VND</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Report Tab -->
+            <div class="tab-pane" id="report-tab">
+                <div class="report-content">
+                    <h2>📄 TỰ ĐỘNG TẠO BÁO CÁO</h2>
+                    
+                    <!-- Report Preview -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>👀 Xem trước báo cáo cho anh Tân Bùi</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="report-preview" id="report-preview">
+                                <div class="report-content-text" id="report-content">
+                                    Nhấn nút "Tạo báo cáo" để tự động tạo báo cáo gửi anh Tân Bùi
+                                </div>
+                            </div>
+                            <div class="report-actions">
+                                <button class="btn btn--primary" id="generate-report">📝 Tạo báo cáo</button>
+                                <button class="btn btn--secondary" id="copy-report">📋 Copy báo cáo</button>
+                                <button class="btn btn--secondary" id="print-report">🖨️ In PDF</button>
+                                <button class="btn btn--secondary" id="email-report">📧 Gửi email</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
