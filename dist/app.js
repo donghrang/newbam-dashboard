@@ -66,6 +66,23 @@ class NewbamDashboard {
                         {"date": "30/8", "task": "Nhận thanh toán Amazon kỳ 2", "amount": "5,500 USD", "responsible": "Thư", "status": "scheduled"},
                         {"date": "30/8", "task": "Báo cáo tài chính định kỳ", "responsible": "Thư", "status": "scheduled"}
                     ]
+                },
+                {
+                    "period": "Tuần 1/9 (1-7/9)",
+                    "tasks": [
+                        {"date": "1-3/9", "task": "Đông tối ưu chiến lược bán hàng, giảm chi phí ads", "responsible": "Đông", "status": "scheduled"},
+                        {"date": "4-6/9", "task": "Thuận hoàn thành phân loại NVL còn lại", "responsible": "Thuận", "status": "pending"},
+                        {"date": "7/9", "task": "Thư cập nhật báo cáo tài chính tuần", "responsible": "Thư", "status": "pending"}
+                    ]
+                },
+                {
+                    "period": "Tuần 2/9 (8-14/9)",
+                    "tasks": [
+                        {"date": "8-10/9", "task": "Đông theo dõi hiệu quả bán hàng sau tối ưu", "responsible": "Đông", "status": "pending"},
+                        {"date": "11-13/9", "task": "Thuận liên hệ thanh lý máy móc", "responsible": "Thuận", "status": "pending"},
+                        {"date": "14/9", "task": "Thư chuẩn bị báo cáo cho kỳ thanh toán 15/9", "responsible": "Thư", "status": "pending"},
+                        {"date": "15/9", "task": "Nhận thanh toán Amazon", "amount": "5,200 USD", "responsible": "Thư", "status": "scheduled"}
+                    ]
                 }
             ],
             "cashflow_timeline": [
@@ -474,6 +491,8 @@ class NewbamDashboard {
         const timelinePeriod = this.data.detailed_timeline.find(period => {
             if (weekId === 'week3-aug' && period.period.includes('Tuần 3')) return true;
             if (weekId === 'week4-aug' && period.period.includes('Tuần 4')) return true;
+            if (weekId === 'week1-sep' && period.period.includes('Tuần 1/9')) return true;
+            if (weekId === 'week2-sep' && period.period.includes('Tuần 2/9')) return true;
             return false;
         });
         
@@ -525,6 +544,8 @@ class NewbamDashboard {
                 const timelinePeriod = this.data.detailed_timeline.find(period => {
                     if (weekId === 'week3-aug' && period.period.includes('Tuần 3')) return true;
                     if (weekId === 'week4-aug' && period.period.includes('Tuần 4')) return true;
+                    if (weekId === 'week1-sep' && period.period.includes('Tuần 1/9')) return true;
+                    if (weekId === 'week2-sep' && period.period.includes('Tuần 2/9')) return true;
                     return false;
                 });
                 
