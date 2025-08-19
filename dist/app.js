@@ -4,11 +4,13 @@ class NewbamDashboard {
     constructor() {
         this.data = this.getUpdatedData();
         this.charts = {};
+        this.currentTheme = 'light';
         this.init();
     }
 
     // Initialize the application
     init() {
+        this.initializeTheme();
         this.setupEventListeners();
         this.renderDashboard();
         this.updateCurrentDate();
@@ -87,6 +89,14 @@ class NewbamDashboard {
 
     // Setup event listeners
     setupEventListeners() {
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
+
         // Tab navigation - FIXED
         document.querySelectorAll('.nav-tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
@@ -680,6 +690,38 @@ class NewbamDashboard {
         // Try to open mail client
         window.open(mailtoLink, '_blank');
         this.showToast('📧 Đang mở ứng dụng email...', 'info');
+    }
+
+    // Initialize theme
+    initializeTheme() {
+        // Check for saved theme preference or default to light
+        const savedTheme = localStorage.getItem('newbam-theme') || 'light';
+        this.setTheme(savedTheme);
+    }
+
+    // Toggle between light and dark themes
+    toggleTheme() {
+        const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+        this.setTheme(newTheme);
+    }
+
+    // Set theme
+    setTheme(theme) {
+        this.currentTheme = theme;
+        document.documentElement.setAttribute('data-color-scheme', theme);
+        localStorage.setItem('newbam-theme', theme);
+        
+        // Update button text
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            if (theme === 'light') {
+                themeToggle.innerHTML = '🌙 Dark Mode';
+            } else {
+                themeToggle.innerHTML = '☀️ Light Mode';
+            }
+        }
+        
+        this.showToast(`🎨 Đã chuyển sang ${theme === 'light' ? 'giao diện sáng' : 'giao diện tối'}`, 'info');
     }
 
     // Format currency
